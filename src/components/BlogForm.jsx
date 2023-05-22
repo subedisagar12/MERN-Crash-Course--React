@@ -1,7 +1,36 @@
-function BlogForm() {
+import { useState } from "react";
+import axios from "axios";
+function BlogForm({ allBlogs, setAllBlogs }) {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
+  function createBlog(event) {
+    event.preventDefault();
+
+    axios({
+      method: "POST",
+      url: "http://localhost:8000/blog/create",
+      data: {
+        title: title,
+        description: description,
+      },
+    })
+      .then((res) => {
+        alert("Your blog has been added");
+        setTitle("");
+        setDescription("");
+        let temp = [...allBlogs];
+        temp.push(res.data.data);
+        setAllBlogs(temp);
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  }
+
   return (
     <>
-      <form>
+      <form onSubmit={createBlog}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Blog Title
@@ -11,6 +40,10 @@ function BlogForm() {
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            value={title}
+            onChange={(event) => {
+              setTitle(event.target.value);
+            }}
           />
         </div>
         <div className="mb-3">
@@ -22,6 +55,10 @@ function BlogForm() {
             className="form-control"
             id="exampleInputPassword1"
             rows={8}
+            value={description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
           />
         </div>
 

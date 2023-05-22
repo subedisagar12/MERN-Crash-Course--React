@@ -1,10 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function BlogList() {
-  // State to store blogs
-  const [allBlogs, setAllBlogs] = useState([]);
-
+function BlogList({ allBlogs, setAllBlogs }) {
   // Function to fetch all blogs from the server
   function getAllBlogs() {
     axios({
