@@ -9,7 +9,7 @@ function BlogForm({ allBlogs, setAllBlogs }) {
 
     axios({
       method: "POST",
-      url: "http://localhost:8000/blog/create",
+      url: import.meta.env.VITE_API_URL + "/blog/create",
       data: {
         title: title,
         description: description,

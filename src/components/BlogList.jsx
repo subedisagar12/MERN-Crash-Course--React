@@ -6,7 +6,7 @@ function BlogList({ allBlogs, setAllBlogs }) {
   function getAllBlogs() {
     axios({
       method: "GET",
-      url: "http://localhost:8000/blog/get",
+      url: import.meta.env.VITE_API_URL + "/blog/get",
     })
       .then((res) => {
         console.log(res.data.data);
@@ -25,7 +25,7 @@ function BlogList({ allBlogs, setAllBlogs }) {
     if (confirmation) {
       axios({
         method: "DELETE",
-        url: "http://localhost:8000/blog/delete/" + blogId,
+        url: import.meta.env.VITE_API_URL + "/blog/delete/" + blogId,
       })
         .then(() => {
           alert("Blog has been deleted successfully");
